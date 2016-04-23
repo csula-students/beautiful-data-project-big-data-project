@@ -18,7 +18,7 @@ repositories {
 
 jar {
   manifest {
-    attributes 'Main-Class': 'edu.csula.datascience.datacollection.Main'
+    attributes 'Main-Class': 'edu.csula.datascience.acquisition.TwitterCollectorApp'
   }
 }
 
