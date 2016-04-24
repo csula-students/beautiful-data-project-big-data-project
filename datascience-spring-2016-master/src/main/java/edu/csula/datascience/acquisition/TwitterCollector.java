@@ -9,7 +9,6 @@ import twitter4j.Status;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
 /**
  * An example of Collector implementation using Twitter4j with MongoDB Java driver
  */
@@ -31,7 +30,6 @@ public class TwitterCollector implements Collector<Status, Status> {
     public Collection<Status> mungee(Collection<Status> src) {
         return src;
     }
-
     @Override
     public void save(Collection<Status> data) {
         List<Document> documents = data.stream()
