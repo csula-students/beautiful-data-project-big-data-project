@@ -11,17 +11,17 @@ import java.util.List;
  * An example of Source implementation using Twitter4j api to grab tweets
  */
 public class TwitterSource implements Source<Status> {
-    private long minId;
+    private String minId;
     private final String searchQuery;
 
-    public TwitterSource(long minId, String query) {
+    public TwitterSource(String minId, String query) {
         this.minId = minId;
         this.searchQuery = query;
     }
 
     @Override
     public boolean hasNext() {
-        return minId > 0;
+        return minId.length() > 0;
     }
 
     @Override
@@ -29,19 +29,19 @@ public class TwitterSource implements Source<Status> {
         List<Status> list = Lists.newArrayList();
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-            .setOAuthConsumerKey("UiwZcTUP7hCIdSvpRSsZSWhbS")
-            .setOAuthConsumerSecret("9u0gOM2cFSaqGwRJmhQQa4z4Cbq15lyydq0BjxvbbaFwVg0Kdp")
-            .setOAuthAccessToken("723735972538535936-pzCe18UQym2ub3F5BFJmj9ubbIaezEO")
-            .setOAuthAccessTokenSecret("kSMQDPZS5XM4URdwRqmuw5rMzeNFKRuoJ3wkaxGnzJVdt");
+            .setOAuthConsumerKey("J1Q2Q9TbwZIWEqTfAghClw9Tb")
+            .setOAuthConsumerSecret("IqEvLwkHUgNcjwZLIeuS6n40z0mKW3UYOLKujqhqzD1nOOxm0i")
+            .setOAuthAccessToken("443691458-PNOLBJRMMObtNxchZ3XGHqAEcNlJABsW70XglEMv")
+            .setOAuthAccessTokenSecret("L1kybDJeVdwy7bWvh47B2oQ5rIZFi7Vz1NSq8xpQLztAl");
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 
         Query query = new Query(searchQuery);
         query.setLang("EN");
         query.setSince("20140101");
-        if (minId != Long.MAX_VALUE) {
-            query.setMaxId(minId);
-        }
+//        if (minId != Long.MAX_VALUE) {
+//            query.setMaxId(minId);
+//        }
 
         list.addAll(getTweets(twitter, query));
 
@@ -57,8 +57,8 @@ public class TwitterSource implements Source<Status> {
 
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
-                	System.out.println(tweet.getText());
-                    minId = Math.min(minId, tweet.getId());
+                  //  minId = Math.min(minId, tweet.getId());
+                	minId = String.valueOf(tweet.getId());
                 }
                 list.addAll(tweets);
             } while ((query = result.nextQuery()) != null);

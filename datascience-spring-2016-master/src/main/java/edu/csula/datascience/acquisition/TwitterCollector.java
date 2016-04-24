@@ -1,6 +1,8 @@
 package edu.csula.datascience.acquisition;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -19,6 +21,7 @@ public class TwitterCollector implements Collector<Status, Status> {
     MongoCollection<Document> collection;
     public TwitterCollector() {
         // establish database connection to MongoDB
+    	//com.mongodb.MongoClientOptions.Builder builder = MongoClientOptions.builder().connectTimeout(3000); 
         mongoClient = new MongoClient();
         // select `bd-example` as testing database
         database = mongoClient.getDatabase("bd-example");
