@@ -29,12 +29,34 @@ public class TwitterSource implements Source<Status> {
         List<Status> list = Lists.newArrayList();
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-            .setOAuthConsumerKey(System.getenv("TWITTER_CONSUMER_KEY"))
-            .setOAuthConsumerSecret(System.getenv("TWITTER_CONSUMER_SECRET"))
-            .setOAuthAccessToken(System.getenv("TWITTER_ACCESS_TOKEN"))
-            .setOAuthAccessTokenSecret(System.getenv("TWITTER_ACCESS_SECRET"));
+            .setOAuthConsumerKey("uNU4y23okvTUziCJ2cQyXbaGV")
+            .setOAuthConsumerSecret("fR6EctAITAxtxTjylsYbhMWmAnN8VRiCxzbt9uhXYlPPRxueGs")
+            .setOAuthAccessToken("2482703839-3sBYf0YF0yWHpr9DDlUKsu1sOFNfONe2T88KLPF")
+            .setOAuthAccessTokenSecret("AzoRG3H1hyrlgUmWgAuokJWGwtlaw5zyxKoO22IYFoABM");
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
+        
+        List<Status> status = null;
+
+        try {
+
+        status = twitter.getHomeTimeline();
+
+        } catch (TwitterException e) {
+
+        // TODO Auto-generated catch block
+
+        e.printStackTrace();
+
+        }
+
+                for(Status st: status)
+
+                {
+
+                System.out.println(st.getUser().getDescription()+"------"+st.getUser().getName()+"-------"+st.getText());
+
+                }
 
         Query query = new Query(searchQuery);
         query.setLang("EN");
@@ -57,6 +79,7 @@ public class TwitterSource implements Source<Status> {
 
                 List<Status> tweets = result.getTweets();
                 for (Status tweet : tweets) {
+                	System.out.println(tweet.getText());
                     minId = Math.min(minId, tweet.getId());
                 }
                 list.addAll(tweets);
