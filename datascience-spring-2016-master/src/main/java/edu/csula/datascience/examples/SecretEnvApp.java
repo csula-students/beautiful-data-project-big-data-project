@@ -5,6 +5,6 @@ package edu.csula.datascience.examples;
  */
 public class SecretEnvApp {
     public static void main(String[] args) {
-        System.out.println(System.getenv("KEY"));
+        System.out.println(System.getenv("KEY")+"hey!");
     }
 }

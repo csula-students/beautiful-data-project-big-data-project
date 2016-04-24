@@ -31,9 +31,12 @@ dependencies {
   compile 'com.google.guava:guava:19.0'
   compile 'org.slf4j:slf4j-api:1.7.20'
   compile 'com.mashape.unirest:unirest-java:1.4.9'
-  compile 'org.mongodb:mongodb-driver:3.2.2'
+  compile 'org.mongodb:mongo-java-driver:3.2.2'
   compile 'org.twitter4j:twitter4j-core:4.0.4'
   compile 'org.mongodb:bson:3.0.4'
+  compile  'com.googlecode.json-simple:json-simple:1.1.1'
+  compile 'com.google.code.gson:gson:2.6.2'
+  
 
   testCompile group: 'junit', name: 'junit', version: '4.11'
 }
@@ -54,6 +57,17 @@ task acquireTwitter(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'edu.csula.datascience.acquisition.TwitterCollectorApp'
+}
+
+task getData(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.datacollection.Main'
+}
+task crawler(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.datacollection.crawler'
 }
 
 task wrapper(type: Wrapper) {

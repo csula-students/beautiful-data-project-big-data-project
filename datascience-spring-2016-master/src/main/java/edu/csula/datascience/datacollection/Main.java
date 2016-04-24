@@ -1,94 +1,118 @@
 package edu.csula.datascience.datacollection;
 
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.gt;
-import static com.mongodb.client.model.Filters.lt;
-import static com.mongodb.client.model.Projections.excludeId;
-import static com.mongodb.client.model.Sorts.descending;
 
-import java.util.List;
-import java.util.Random;
+
+
+
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import com.google.common.collect.Lists;
-import com.mongodb.Block;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+
+
+
+
 
 public class Main {
+	 
+	
 
-	public static void main(String[] args) {
-		MongoClient mongoClient = new MongoClient("localhost");
-		MongoDatabase database = mongoClient.getDatabase("test");
-		// database.createCollection("test");
-		 MongoCollection<Document> collection =database.getCollection("t1");
-//		for (String s : mongoClient.getDatabaseNames()) {
-//			   System.out.println(s);
-//			}
-		 Document doc = new Document("name", "MongoDB")
-		            .append("type", "database")
-		            .append("count", 1)
-		            .append("info", new Document("x", 203).append("y", 102));
-		 
-		// to insert document
-	        collection.insertOne(doc);
-	        System.out.println(
-	            String.format(
-	                "Inserted new document %s",
-	                doc.toJson()
-	            )
-	        );
+	
+
+	
+	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException  {
+		
+		
+		
+		  // establish database connection to MongoDB
+        MongoClient mongoClient = new MongoClient();
+        // select `bd-example` as testing database
+        MongoDatabase database = mongoClient.getDatabase("test");
+
+        // select collection by name `test`
+        MongoCollection<Document> collection = database.getCollection("t1");
+		
+		
+
+        JSONParser parser = new JSONParser();
+        String jsonString = callURL("/Users/rohanpatel/Desktop/test.json");
+		 JSONArray br = new JSONArray( jsonString);
+
+	        for(int i=0;i<br.length();i++){
+	        	org.json.JSONObject t = br.getJSONObject(i);
+	        	String name = (String) t.get("name");
 	        
-	     // to find a document out of collection
-	        Document foundDoc = collection.find().first();
-	        System.out.println(
-	            String.format(
-	                "Found document %s",
-	                foundDoc.toJson()
-	            )
-	        );
-//	        // insert 1000 documents
-//	        List<Document> docs = Lists.newArrayList();
-//	        for (int i = 0; i < 100; i ++) {
-//	            Document newDoc = new Document("name", i)
-//	                .append("count", new Random().nextInt(100));
-//	            docs.add(newDoc);
-//	        }
-//	        collection.insertMany(docs);
-//	        System.out.println("Inserted many random count documents");
-//
-//	        // get many documents at once with iterator
-//	        try (MongoCursor<Document> cursor = collection.find().iterator()) {
-//	            while (cursor.hasNext()) {
-//	                System.out.println(
-//	                    String.format(
-//	                        "Got document %s",
-//	                        cursor.next().toJson()
-//	                    )
-//	                );
-//	            }
-//	        }
-//
-//	        // query by field to find single document
-//	        Document mongoDoc = collection.find(eq("name", "MongoDB")).first();
-//	        System.out.println(
-//	            String.format(
-//	                "Found document by name `MongoDB` %s",
-//	                mongoDoc.toJson()
-//	            )
-//	        );
-//
-//	        // query by field to find a list of documents
-//	        collection.find(and(gt("count", 50), lt("count", 70)))
-//	            .sort(descending("count")) // sort by count in desc order
-//	            .projection(excludeId())
-//	            .forEach((Block<? super Document>) d -> {
-//	                System.out.println(d.toJson());
-//	            });
+	        	
+	        	
+	            String city = (String) t.get("city");
+	           
+
+	            String job = (String) t.get("job");
+	          
+	            JSONArray cars = (JSONArray) t.get("cars");
+
+	            Document doc = new Document("name", name)
+	                    .append("city", city)
+	                    .append("job", job)
+	                    .append("cars", cars);
+	            
+	            collection.insertOne(doc);
+	        }
+	      
+		
 	}
 
+	
+	public static String callURL(String myURL) {
+		System.out.println("Requested URL:" + myURL);
+		StringBuilder sb = new StringBuilder();
+		URLConnection urlConn = null;
+		//InputStreamReader in = null;
+		try {
+			File url = new File(myURL);
+			
+//			urlConn = url.openConnection();
+//			if (urlConn != null)
+//				urlConn.setReadTimeout(60 * 1000);
+//			if (urlConn != null && urlConn.getInputStream() != null) {
+//				in = new InputStreamReader(urlConn.getInputStream(),
+//						Charset.defaultCharset());
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(url));
+				if (bufferedReader != null) {
+					int cp;
+					while ((cp = bufferedReader.read()) != -1) {
+						sb.append((char) cp);
+					}
+					bufferedReader.close();
+				}
+			
+		//in.close();
+		} catch (Exception e) {
+			throw new RuntimeException("Exception while calling URL:"+ myURL, e);
+		} 
+ 
+		return sb.toString();
+	}
 }
