@@ -1,6 +1,7 @@
 package edu.csula.datascience.datacollection;
 
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -29,10 +30,11 @@ public class CollectData implements Collector<JSONObject, JSONObject>{
 	DB db;
 	DBCollection collection;
     
-	 public CollectData() {
+	 public CollectData() throws IOException {
 		  mongo = new Mongo();
 			 db = mongo.getDB("test");
 			 collection = db.getCollection("t1");
+			 
 	    }
 	
 	

@@ -1,4 +1,4 @@
-package edu.csula.datascience.datacollection;
+package edu.csula.datascience.imdb;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class temp {
 	public static void main(String[] args) throws IOException {
 		
 		FileWriter f=new FileWriter("file/data/file.json");
-	SourceData source = new SourceData(16373);
+	SourceData source = new SourceData(1000000);
 	CollectData collector = new CollectData();
 	System.out.println(source);
 	
@@ -22,6 +22,7 @@ public class temp {
         Collection<JSONObject> ts = source.next();
         Collection<JSONObject> collect_data = collector.mungee(ts);
         collector.save(collect_data);
+        
         JSONArray array = new JSONArray();
         array.put(collect_data);
         String str = array.toString();
@@ -29,5 +30,4 @@ public class temp {
     }
 	
 	}
-	
 }

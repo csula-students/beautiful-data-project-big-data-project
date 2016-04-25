@@ -1,4 +1,4 @@
-package edu.csula.datascience.weatherApi;
+package edu.csula.datascience.imdb;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class CollectData implements Collector<JSONObject, JSONObject>{
 	 public CollectData() {
 		  mongo = new Mongo();
 			 db = mongo.getDB("test");
-			 collection = db.getCollection("t3");
+			 collection = db.getCollection("t2");
 	    }
 	
 	

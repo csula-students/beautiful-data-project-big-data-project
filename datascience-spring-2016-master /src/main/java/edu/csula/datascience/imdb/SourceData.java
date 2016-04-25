@@ -1,4 +1,4 @@
-package edu.csula.datascience.datacollection;
+package edu.csula.datascience.imdb;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,7 +41,19 @@ public class SourceData implements Source<JSONObject>{
 	public Collection<JSONObject> next() {
 		 List<JSONObject> list = Lists.newArrayList();
 		 
-		 String jsonString = getTVmaze("http://api.tvmaze.com/shows/"+minId);
+		 String id="";
+		 String st = String.valueOf(minId);
+		 int len = st.length();
+		 if(len == 1) id = "000000"+st;
+			if(len == 2) id = "00000"+st;
+			if(len == 3) id = "0000"+st;
+			if(len == 4) id = "000"+st;
+			if(len == 5) id = "00"+st;
+			if(len == 6) id = "0"+st;
+			if(len == 7) id = st;
+		 
+		 String jsonString = getTVmaze("http://www.omdbapi.com/?i=tt"+id);
+		 
 		 Object obj = JSON.parse(jsonString);
 			Gson gson = new Gson();
 			String jo = gson.toJson(obj);
