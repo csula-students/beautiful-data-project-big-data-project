@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.csula.datascience.acquisition.CollectorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-04-25T05:04:33" hostname="Bhaviks-MacBook-Pro.local" time="0.082">
+  <properties/>
+  <testcase name="mungee" classname="edu.csula.datascience.acquisition.CollectorTest" time="0.082"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
