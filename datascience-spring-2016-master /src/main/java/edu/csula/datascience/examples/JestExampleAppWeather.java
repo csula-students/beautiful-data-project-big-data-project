@@ -58,15 +58,8 @@ public class JestExampleAppWeather {
 	                 
 	            	Weather weather = new Weather(
 							record.get("id"),
-						//	record.get("coord"),
-							//record.get("weather"),
-						//	record.get("base"),
-						//	record.get("clouds"),
-							//record.get("dt"),
 							record.get("name"),
 							record.get("country"),
-						//	Double.valueOf(record.get("wind_degree")),
-						//	Double.valueOf(record.get("wind_speed")),
 							Double.valueOf(record.get("temp_max")),
 							Double.valueOf(record.get("temp_min")),
 							Double.valueOf(record.get("humidity")),
@@ -125,15 +118,8 @@ public class JestExampleAppWeather {
 	    
 	    static class Weather {
 			private final String id;
-			//private final String coord;
-		//	private final String weather;
-			//private final String base;
-			//private final String clouds;
-			//private final String dt;
 			private final String name;
 			private final String country;
-		//	private final Double wind_degree;
-			//private final Double wind_speed;
 			private final Double temp_max;
 			private final Double temp_min;
 			private final Double humidity;
@@ -142,15 +128,8 @@ public class JestExampleAppWeather {
 
 			public Weather(String id, String name,String country,Double temp_max, Double temp_min, Double humidity, Double pressure, Double temp) {
 				this.id = id;
-				//this.coord = coord;
-				//this.weather = weather;
-				//this.base = base;
-				//this.clouds = clouds;
-				//this.dt =dt;
 				this.name = name;
 				this.country = country;
-				//this.wind_degree = wind_degree;
-				//this.wind_speed = wind_speed;
 				this.temp_max = temp_max;
 				this.temp_min = temp_min;
 				this.humidity = humidity;
@@ -170,37 +149,10 @@ public class JestExampleAppWeather {
 				return id;
 			}
 
-//			public String getCoord() {
-//				return coord;
-//			}
-//
-//			public String getWeather() {
-//				return weather;
-//			}
-//
-//			public String getBase() {
-//				return base;
-//			}
-//
-//			public String getClouds() {
-//				return clouds;
-//			}
-//			
-//			public String dt() {
-//				return dt;
-//			}
 
 			public String getName() {
 				return name;
 			}
-
-//			public Double getWind_degree() {
-//				return wind_degree;
-//			}
-//
-//			public Double getWind_speed() {
-//				return wind_speed;
-//			}
 
 			public Double getTemp_max() {
 				return temp_max;
