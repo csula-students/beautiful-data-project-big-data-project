@@ -105,11 +105,7 @@ public class imdbES {
 				.node();
 		Client client = node.client();
 
-		/**
-		 *
-		 *
-		 * INSERT data to elastic search
-		 */
+		
 
 		// as usual process to connect to data source, we will need to set up
 		// node and client// to read CSV file from the resource folder

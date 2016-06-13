@@ -40,6 +40,8 @@ dependencies {
   compile 'org.elasticsearch:elasticsearch:2.2.0'
   compile 'com.google.code.gson:gson:2.6.2'
   compile 'org.apache.commons:commons-csv:1.2'
+  compile 'org.apache.commons:commons-csv:1.2'
+  compile group: 'io.searchbox', name: 'jest', version: '2.0.2'
   
 
   testCompile group: 'junit', name: 'junit', version: '4.11'
@@ -105,7 +107,17 @@ task esWEATHER(type: JavaExec) {
   main = 'edu.csula.datascience.examples.weatherES'
 }
 
+task remoteEs(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
 
+  main = 'edu.csula.datascience.examples.JestExampleApp'
+}
+
+task remoteEsWeather(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.examples.JestExampleAppWeather'
+}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
